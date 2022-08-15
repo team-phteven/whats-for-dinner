@@ -83,14 +83,6 @@ populateSelectOptions(dietSelect, diets)
 // const KEY = "29b6cef4efe24ee2a38465bb1ece58f3"
 const SPOONAPI = "https://api.spoonacular.com/recipes"
 
-// hard-coding api request vars
-
-// function to extract recipe steps
-
-function getSteps(recipe){
-
-}
-
 // define object to be assigned with data
 let recipeInfo = {}
 
@@ -117,9 +109,9 @@ async function getRecipeInfo() {
     }
 }
 
-// click event listener for button
 
-//this function will update the variable `recipe info` with data on click
+// click event listener for button
+// the function will update the variable `recipe info` with data on click (is async)
 document.querySelector('button').addEventListener('click', async function(event) {
     event.preventDefault()
     await getRecipeInfo()
