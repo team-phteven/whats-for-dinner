@@ -102,7 +102,7 @@ async function getRecipeInfo() {
     let steps = await recipeBody["0"]["steps"]
 
     //updating recipeInfo with new values
-    recipeInfo = await {
+    recipeInfo = {
         steps: steps,
         title: title,
         image_url: image_url
@@ -115,6 +115,7 @@ async function getRecipeInfo() {
 document.querySelector('button').addEventListener('click', async function(event) {
     event.preventDefault()
     await getRecipeInfo()
+    console.log("---------")
     console.log(recipeInfo)
     console.log(recipeInfo["steps"])
 })
