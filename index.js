@@ -86,6 +86,62 @@ const SPOONAPI = "https://api.spoonacular.com/recipes"
 // define object to be assigned with data
 let recipeInfo = {}
 
+// hard coded mock object from API
+// let ingredients = [
+//         {
+//             "amount": {
+//                 "metric": {
+//                     "unit": "g",
+//                     "value": 222.0
+//                 },
+//                 "us": {
+//                     "unit": "cups",
+//                     "value": 1.5
+//                 }
+//             },
+//             "image": "blueberries.jpg",
+//             "name": "blueberries"
+//         },
+//         {
+//             "amount": {
+//                 "metric": {
+//                     "unit": "",
+//                     "value": 1.0
+//                 },
+//                 "us": {
+//                     "unit": "",
+//                     "value": 1.0
+//                 }
+//             },
+//             "image": "egg-white.jpg",
+//             "name": "egg white"
+//         },
+//         {
+//             "amount": {
+//                 "metric": {
+//                     "unit": "Tbsps",
+//                     "value": 2.0
+//                 },
+//                 "us": {
+//                     "unit": "Tbsps",
+//                     "value": 2.0
+//                 }
+//             },
+//             "image": "flour.png",
+//             "name": "flour"
+//         }
+//     ]
+
+// function to make array of ingredient strings
+
+function stringIngredients(ingredients){
+    let strings = []
+    for (let ing of ingredients){
+        strings.push(`${ing["name"]} ${ing["amount"]["metric"]["value"]} ${ing["amount"]["metric"]["unit"]}`)
+    }
+    return strings
+}
+
 async function getRecipeInfo() {
 
     // first request to get id, title and image
@@ -101,11 +157,20 @@ async function getRecipeInfo() {
     let recipeBody = await recipeResponse.json()
     let steps = await recipeBody["0"]["steps"]
 
+    // retrieving the recipe steps using another request with id as parameter
+    let ingredientsResponse = await fetch(`${SPOONAPI}/${id}/ingredientWidget.json?apiKey=${API_KEY}`)
+    let ingredientsBody = await ingredientsResponse.json()
+    let ingredientsArray = await ingredientsBody["ingredients"]
+    let ingredients = stringIngredients(ingredientsArray)
+    console.log(ingredientsBody)
+    // let ingredients = await recipeBody["0"]["steps"]
+
     //updating recipeInfo with new values
-    recipeInfo = await {
+    recipeInfo = {
         steps: steps,
         title: title,
-        image_url: image_url
+        image_url: image_url,
+        ingredients: ingredients
     }
 }
 
@@ -115,18 +180,9 @@ async function getRecipeInfo() {
 document.querySelector('button').addEventListener('click', async function(event) {
     event.preventDefault()
     await getRecipeInfo()
+    console.log("---------")
     console.log(recipeInfo)
-    console.log(recipeInfo["steps"])
+    console.log(recipeInfo["ingredients"])
 })
 
-// function for showing and hiding selection menu on mobile
-
-document.querySelector('.settings-button').addEventListener('click', () => {
-    var x = document.querySelector(".select-wrapper");
-    if (x.style.display === "block") {
-    x.style.display = "none";
-    } else {
-    x.style.display = "block";
-    }
-})
-
+console.log(stringIngredients(ingredients))
