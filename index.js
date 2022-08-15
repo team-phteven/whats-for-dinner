@@ -2,7 +2,9 @@ import { API_KEY } from './credentials.js'
 
 // Array of available cuisines
 
-const cuisines = ["African",
+const cuisines = [
+    "Any Cuisine",
+    "African",
     "American",
     "British",
     "Cajun",
@@ -32,6 +34,7 @@ const cuisines = ["African",
 // Array of available diets
 
 const diets = [
+    "Any Diet",
     "Gluten Free",
     "Ketogenic",
     "Vegetarian",
@@ -140,8 +143,12 @@ async function getRecipeInfo() {
 // click event listener for button
 // the function will update the variable `recipe info` with data on click (is async)
 document.querySelector('button').addEventListener('click', async function(event) {
-    event.preventDefault()
-    await getRecipeInfo()
+    displayRecipeCard();
+    event.preventDefault();
+    await getRecipeInfo();
+    fillRecipeIngredients();
+    fillRecipeTitle();
+    fillRecipeHeroImage();
 })
 
 // mock recipe object
@@ -149,5 +156,30 @@ let recipe = {
     "steps": ['Season and Boil the Chicken for 10 minutes with sa…toes Both chopped and Blended, ginger and garlic.', 'Add your seasoning, curry, thyme, parsley, salt and pepper to the pot.', 'Pour in your stock, chicken and potatoes to cook f…r sauce gets too thick, add a little water to it.', 'Serve with white rice or more sweet potatoes.You could also garnish the dish with Bell peppers.   '],
     title: "African Chicken Peanut Stew",
     image_url: "https://spoonacular.com/recipeImages/716268-312x231.jpg",
-    ingredients: ["bell peppers 1 serving", "cooking oil 2.5 ", "curry paste 1 tsp", "ginger 1", "thyme 1 pinch", "tomato 1.5", "bell peppers 1 serving", "cooking oil 2.5 ", "curry paste 1 tsp", "ginger 1", "thyme 1 pinch", "tomato 1.5", "curry paste 1 tsp", "ginger 1", "thyme 1 pinch"],
+    ingredients: ["bell peppers 1 serving", "cooking oil 2.5 ", "curry paste 1 tsp", "ginger 1", "thyme 1 pinch", "tomato 1.5", "bell peppers 1 serving", "cooking oil 2.5 ", "curry paste 1 tsp", "ginger 1", "thyme 1 pinch", "tomato 1.5", "curry paste 1 tsp", "ginger 1", "thyme 1 pinch"]
+}
+
+function fillRecipeIngredients() {
+    const ingredientList = document.getElementById("recipe-ingredients")
+    ingredientList.innerHTML = '';
+    recipeInfo.ingredients.forEach(ing => {
+        const newIngredient = document.createElement('li');
+        newIngredient.innerText = ing
+        newIngredient.classList += "ingredient"
+        ingredientList.appendChild(newIngredient)})
+}
+
+function fillRecipeTitle() {
+    const recipeTitle = document.getElementById("recipe-title");
+    recipeTitle.innerText = recipeInfo.title;
+}
+
+function fillRecipeHeroImage() {
+    const heroImage = document.getElementById("recipe-hero");
+    heroImage.style.backgroundImage = `url('${recipeInfo.image_url}')`;
+}
+
+function displayRecipeCard() {
+    const recipeCard = document.getElementById("recipe-card")
+    recipeCard.style.display = "block";
 }
