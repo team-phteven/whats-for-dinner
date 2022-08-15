@@ -1,4 +1,5 @@
-import { API_KEY } from './credentials.js'
+// import { API_KEY } from './credentials.js'
+// console.log(API_KEY)
 
 // Array of available cuisines
 
