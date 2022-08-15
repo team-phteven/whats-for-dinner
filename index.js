@@ -84,51 +84,37 @@ populateSelectOptions(dietSelect, diets)
 const SPOONAPI = "https://api.spoonacular.com/recipes"
 
 // hard-coding api request vars
-let cuisine = "mediterranean"
-let diet = "vegetarian"
+
+// function to extract recipe steps
+
+function getSteps(recipe){
+
+}
 
 async function getRecipeInfo() {
 
-    return {
-        "cuisine": "cuisineSelect.value",
-        "diet": "dietSelect.value"
-    }
-
-    // let res = await fetch(`${SPOONAPI}/complexSearch?apiKey=${API_KEY}&cuisine=${cuisineSelect.value}&diet=${dietSelect.value}&number=1`)
-    // let body = await res.json()
-    // let result = await body.results[0]
-    // console.log(result)
-    // let id = await result.id
-    // console.log(id)
-    // return id
-    // id title image
-    
-}
-
-async function getRecipeCard() {
-    let id = getRecipeId()
-    // let res = await fetch(`${SPOONAPI}/?apiKey=${KEY}&cuisine=${cuisine}&diet=${diet}&number=1`)
-    let res = await fetch(`https://api.spoonacular.com/recipes/4632/card?apiKey=${API_KEY}`)
+    // first request to get id, title and image
+    let res = await fetch(`${SPOONAPI}/complexSearch?apiKey=${API_KEY}&cuisine=${cuisineSelect.value}&diet=${dietSelect.value}&number=1`)
     let body = await res.json()
-    // let result = await body.results[0]
-    console.log(body)
+    let result = await body.results[0]
+    let id = await result.id
+    let title = await result.title
+    let image_url = await result.image
+    
+    // retrieving the recipe steps using another request with id as parameter
+    //{id}/analyzedInstructions
+    // https://api.spoonacular.com/recipes/{id}/analyze?apiKey={API_KEY}
+    let recipeResponse = await fetch(`${SPOONAPI}/${id}/analyzedInstructions?apiKey=${API_KEY}`)
+    let recipeBody = await recipeResponse.json()
+    console.log(recipeBody)
 }
-
-// console.log(toCamelCase("Lacto-Vegetarian"))
 
 // click event listener for button
 
-// const recipeInfo = {}
+let recipeInfo = {}
 
 document.querySelector('button').addEventListener('click', function(event) {
     event.preventDefault()
-    console.log(getRecipeInfo())
+    recipeInfo = getRecipeInfo()
+    console.log(recipeInfo)
 })
-
-// sample response from getRecipeInfo
-
-// {id: 716268, title: 'African Chicken Peanut Stew', image: 'https://spoonacular.com/recipeImages/716268-312x231.jpg', imageType: 'jpg'}
-// id: 716268
-// image: "https://spoonacular.com/recipeImages/716268-312x231.jpg"
-// imageType: "jpg"
-// title: "African Chicken Peanut Stew"
