@@ -118,3 +118,15 @@ document.querySelector('button').addEventListener('click', async function(event)
     console.log(recipeInfo)
     console.log(recipeInfo["steps"])
 })
+
+// function for showing and hiding selection menu on mobile
+
+document.querySelector('.settings-button').addEventListener('click', () => {
+    var x = document.querySelector(".select-wrapper");
+    if (x.style.display === "block") {
+    x.style.display = "none";
+    } else {
+    x.style.display = "block";
+    }
+})
+
