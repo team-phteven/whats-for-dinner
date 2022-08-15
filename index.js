@@ -1,5 +1,4 @@
-// import { API_KEY } from './credentials.js'
-// console.log(API_KEY)
+import { API_KEY } from './credentials.js'
 
 // Array of available cuisines
 
@@ -49,6 +48,8 @@ const diets = [
 // Takes an HTML <select> element and an array of option strings.
 // Populates the <select> element with the <option>'s .
 
+// function to convert string
+
 function populateSelectOptions(element, options) {
     for (let option of options) {
         const newOption = document.createElement('option');
@@ -63,3 +64,34 @@ const dietSelect = document.getElementById('diet-select');
 
 populateSelectOptions(cuisineSelect, cuisines);
 populateSelectOptions(dietSelect, diets)
+
+// API stuff
+
+// const KEY = "29b6cef4efe24ee2a38465bb1ece58f3"
+const SPOONAPI = "https://api.spoonacular.com/recipes"
+
+// hard-coding api request vars
+let cuisine = "mediterranean"
+let diet = "vegetarian"
+
+async function getRecipeId() {
+    let res = await fetch(`${SPOONAPI}/complexSearch?apiKey=${API_KEY}&cuisine=${cuisineSelect.value}&diet=${dietSelect.value}&number=1`)
+    let body = await res.json()
+    let result = await body.results[0]
+    let id = await result.id
+    console.log(id)
+    return id
+    // id title image
+    // 
+}
+
+async function getRecipeCard() {
+    let id = getRecipeId()
+    // let res = await fetch(`${SPOONAPI}/?apiKey=${KEY}&cuisine=${cuisine}&diet=${diet}&number=1`)
+    let res = await fetch(`https://api.spoonacular.com/recipes/4632/card?apiKey=${API_KEY}`)
+    let body = await res.json()
+    // let result = await body.results[0]
+    console.log(body)
+}
+
+getRecipeCard()
