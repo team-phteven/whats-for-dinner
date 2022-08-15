@@ -48,12 +48,25 @@ const diets = [
 // Takes an HTML <select> element and an array of option strings.
 // Populates the <select> element with the <option>'s .
 
-// function to convert string
+// function to convert string to camelCase
+function toCamelCase(str) {
+    let answer = ""
+    answer += str[0].toLowerCase()
+    for (let i =1; i < str.length; i++){
+        if (str[i - 1] === "_"||str[i - 1] === "-"){
+            answer += str[i].toUpperCase()
+        } else if (str[i] !== "-" && str[i] !== "_" && str[i] !== " "){
+            answer += str[i]
+        }
+    }
+    return answer
+}
+
 
 function populateSelectOptions(element, options) {
     for (let option of options) {
         const newOption = document.createElement('option');
-        newOption.value = option;
+        newOption.value = toCamelCase(option);
         newOption.text = option;
         element.appendChild(newOption);
     }
@@ -71,25 +84,37 @@ populateSelectOptions(dietSelect, diets)
 const SPOONAPI = "https://api.spoonacular.com/recipes"
 
 // hard-coding api request vars
-let cuisine = "mediterranean"
-let diet = "vegetarian"
 
-async function getRecipeId() {
+// function to extract recipe steps
+
+function getSteps(recipe){
+
+}
+
+async function getRecipeInfo() {
+
+    // first request to get id, title and image
     let res = await fetch(`${SPOONAPI}/complexSearch?apiKey=${API_KEY}&cuisine=${cuisineSelect.value}&diet=${dietSelect.value}&number=1`)
     let body = await res.json()
     let result = await body.results[0]
     let id = await result.id
-    console.log(id)
-    return id
-    // id title image
-    // 
+    let title = await result.title
+    let image_url = await result.image
+    
+    // retrieving the recipe steps using another request with id as parameter
+    //{id}/analyzedInstructions
+    // https://api.spoonacular.com/recipes/{id}/analyze?apiKey={API_KEY}
+    let recipeResponse = await fetch(`${SPOONAPI}/${id}/analyzedInstructions?apiKey=${API_KEY}`)
+    let recipeBody = await recipeResponse.json()
+    console.log(recipeBody)
 }
 
-async function getRecipeCard() {
-    let id = getRecipeId()
-    // let res = await fetch(`${SPOONAPI}/?apiKey=${KEY}&cuisine=${cuisine}&diet=${diet}&number=1`)
-    let res = await fetch(`https://api.spoonacular.com/recipes/4632/card?apiKey=${API_KEY}`)
-    let body = await res.json()
-    // let result = await body.results[0]
-    console.log(body)
-}
+// click event listener for button
+
+let recipeInfo = {}
+
+document.querySelector('button').addEventListener('click', function(event) {
+    event.preventDefault()
+    recipeInfo = getRecipeInfo()
+    console.log(recipeInfo)
+})
