@@ -107,6 +107,3 @@ async function getRecipeCard() {
     // let result = await body.results[0]
     console.log(body)
 }
-
-// toCamelCase("Middle Eastern")
-getRecipeCard()
