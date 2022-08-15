@@ -183,6 +183,28 @@ document.querySelector('button').addEventListener('click', async function(event)
     console.log("---------")
     console.log(recipeInfo)
     console.log(recipeInfo["ingredients"])
+    fillRecipeIngredients()
+    fillRecipeTitle()
 })
 
-console.log(stringIngredients(ingredients))
+
+function fillRecipeIngredients() {
+    const ingredientList = document.getElementById("recipe-ingredients")
+    ingredientList.innerHTML = '';
+    recipeInfo.ingredients.forEach(ing => {
+        const newIngredient = document.createElement('li');
+        newIngredient.innerText = ing
+        newIngredient.classList += "ingredient"
+        ingredientList.appendChild(newIngredient)
+    })
+}
+
+function fillRecipeTitle() {
+    const recipeTitle = document.getElementById("recipe-title")
+    recipeTitle.innerText = recipeInfo.title
+}
+
+function fillRecipeHeroImage() {
+    const heroImage = document.getElementById("recipe-hero")
+    heroImage.style.backgroundImage = `url()`
+}
