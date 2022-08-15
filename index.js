@@ -87,11 +87,19 @@ const SPOONAPI = "https://api.spoonacular.com/recipes"
 let recipeInfo = {}
 
 // function to make array of ingredient strings
-
 function stringIngredients(ingredients){
     let strings = []
     for (let ing of ingredients){
         strings.push(`${ing["name"]} ${ing["amount"]["metric"]["value"]} ${ing["amount"]["metric"]["unit"]}`)
+    }
+    return strings
+}
+
+// function to make array of steps
+function stepStrings(stepsArray){
+    let strings = []
+    for (let item of stepsArray){
+        strings.push(item["step"])
     }
     return strings
 }
@@ -109,16 +117,14 @@ async function getRecipeInfo() {
     // retrieving the recipe steps using another request with id as parameter
     let recipeResponse = await fetch(`${SPOONAPI}/${id}/analyzedInstructions?apiKey=${API_KEY}`)
     let recipeBody = await recipeResponse.json()
-    let steps = await recipeBody["0"]["steps"]
+    let stepsArray = await recipeBody["0"]["steps"]
+    let steps = stepStrings(stepsArray)
 
     // retrieving the recipe steps using another request with id as parameter
     let ingredientsResponse = await fetch(`${SPOONAPI}/${id}/ingredientWidget.json?apiKey=${API_KEY}`)
     let ingredientsBody = await ingredientsResponse.json()
     let ingredientsArray = await ingredientsBody["ingredients"]
-    console.log("ingredientsArray below")
-    console.log(ingredientsArray)
     let ingredients = stringIngredients(ingredientsArray)
-    console.log(ingredientsBody)
     // let ingredients = await recipeBody["0"]["steps"]
 
     //updating recipeInfo with new values
@@ -136,65 +142,12 @@ async function getRecipeInfo() {
 document.querySelector('button').addEventListener('click', async function(event) {
     event.preventDefault()
     await getRecipeInfo()
-    console.log("---------")
-    console.log(recipeInfo)
-    console.log(recipeInfo["ingredients"])
 })
 
-console.log(stringIngredients(ingredients))
-
 // mock recipe object
-
 let recipe = {
-    "steps": [
-        {
-            "number": 1,
-            "step": "Put the garlic in a pan and then add the onion.",
-            "ingredients": [
-                {
-                    "id": 11215,
-                    "name": "garlic",
-                    "localizedName": "garlic",
-                    "image": "garlic.png"
-                },
-                {
-                    "id": 11282,
-                    "name": "onion",
-                    "localizedName": "onion",
-                    "image": "brown-onion.png"
-                }
-            ],
-            "equipment": [
-                {
-                    "id": 404645,
-                    "name": "frying pan",
-                    "localizedName": "frying pan",
-                    "image": "pan.png"
-                }
-            ]
-        },
-        {
-            "number": 2,
-            "step": "Add some salt and oregano.",
-            "ingredients": [
-                {
-                    "id": 2027,
-                    "name": "oregano",
-                    "localizedName": "oregano",
-                    "image": "oregano.jpg"
-                },
-                {
-                    "id": 2047,
-                    "name": "salt",
-                    "localizedName": "salt",
-                    "image": "salt.jpg"
-                }
-            ],
-            "equipment": []
-        }
-    ]
-,
+    "steps": ['Season and Boil the Chicken for 10 minutes with sa…toes Both chopped and Blended, ginger and garlic.', 'Add your seasoning, curry, thyme, parsley, salt and pepper to the pot.', 'Pour in your stock, chicken and potatoes to cook f…r sauce gets too thick, add a little water to it.', 'Serve with white rice or more sweet potatoes.You could also garnish the dish with Bell peppers.   '],
     title: "African Chicken Peanut Stew",
-    image_url: https://spoonacular.com/recipeImages/716268-312x231.jpg,
+    image_url: "https://spoonacular.com/recipeImages/716268-312x231.jpg",
     ingredients: ["bell peppers 1 serving", "cooking oil 2.5 ", "curry paste 1 tsp", "ginger 1", "thyme 1 pinch", "tomato 1.5", "bell peppers 1 serving", "cooking oil 2.5 ", "curry paste 1 tsp", "ginger 1", "thyme 1 pinch", "tomato 1.5", "curry paste 1 tsp", "ginger 1", "thyme 1 pinch"],
 }
