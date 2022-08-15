@@ -86,52 +86,6 @@ const SPOONAPI = "https://api.spoonacular.com/recipes"
 // define object to be assigned with data
 let recipeInfo = {}
 
-// hard coded mock object from API
-// let ingredients = [
-//         {
-//             "amount": {
-//                 "metric": {
-//                     "unit": "g",
-//                     "value": 222.0
-//                 },
-//                 "us": {
-//                     "unit": "cups",
-//                     "value": 1.5
-//                 }
-//             },
-//             "image": "blueberries.jpg",
-//             "name": "blueberries"
-//         },
-//         {
-//             "amount": {
-//                 "metric": {
-//                     "unit": "",
-//                     "value": 1.0
-//                 },
-//                 "us": {
-//                     "unit": "",
-//                     "value": 1.0
-//                 }
-//             },
-//             "image": "egg-white.jpg",
-//             "name": "egg white"
-//         },
-//         {
-//             "amount": {
-//                 "metric": {
-//                     "unit": "Tbsps",
-//                     "value": 2.0
-//                 },
-//                 "us": {
-//                     "unit": "Tbsps",
-//                     "value": 2.0
-//                 }
-//             },
-//             "image": "flour.png",
-//             "name": "flour"
-//         }
-//     ]
-
 // function to make array of ingredient strings
 
 function stringIngredients(ingredients){
