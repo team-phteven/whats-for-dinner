@@ -133,6 +133,7 @@ button:hover {
     border-radius: 20px;
     background-color: lightgrey;
     overflow: hidden;
+    display:none;
 }
 
 .recipe-hero {
