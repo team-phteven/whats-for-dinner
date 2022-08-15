@@ -113,8 +113,8 @@ async function getRecipeInfo() {
 
 let recipeInfo = {}
 
-document.querySelector('button').addEventListener('click', function(event) {
-    event.preventDefault()
-    recipeInfo = getRecipeInfo()
-    console.log(recipeInfo)
-})
+// document.querySelector('button').addEventListener('click', function(event) {
+//     event.preventDefault()
+//     recipeInfo = getRecipeInfo()
+//     console.log(recipeInfo)
+// })
