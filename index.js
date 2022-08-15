@@ -115,6 +115,8 @@ async function getRecipeInfo() {
     let ingredientsResponse = await fetch(`${SPOONAPI}/${id}/ingredientWidget.json?apiKey=${API_KEY}`)
     let ingredientsBody = await ingredientsResponse.json()
     let ingredientsArray = await ingredientsBody["ingredients"]
+    console.log("ingredientsArray below")
+    console.log(ingredientsArray)
     let ingredients = stringIngredients(ingredientsArray)
     console.log(ingredientsBody)
     // let ingredients = await recipeBody["0"]["steps"]
@@ -140,3 +142,59 @@ document.querySelector('button').addEventListener('click', async function(event)
 })
 
 console.log(stringIngredients(ingredients))
+
+// mock recipe object
+
+let recipe = {
+    "steps": [
+        {
+            "number": 1,
+            "step": "Put the garlic in a pan and then add the onion.",
+            "ingredients": [
+                {
+                    "id": 11215,
+                    "name": "garlic",
+                    "localizedName": "garlic",
+                    "image": "garlic.png"
+                },
+                {
+                    "id": 11282,
+                    "name": "onion",
+                    "localizedName": "onion",
+                    "image": "brown-onion.png"
+                }
+            ],
+            "equipment": [
+                {
+                    "id": 404645,
+                    "name": "frying pan",
+                    "localizedName": "frying pan",
+                    "image": "pan.png"
+                }
+            ]
+        },
+        {
+            "number": 2,
+            "step": "Add some salt and oregano.",
+            "ingredients": [
+                {
+                    "id": 2027,
+                    "name": "oregano",
+                    "localizedName": "oregano",
+                    "image": "oregano.jpg"
+                },
+                {
+                    "id": 2047,
+                    "name": "salt",
+                    "localizedName": "salt",
+                    "image": "salt.jpg"
+                }
+            ],
+            "equipment": []
+        }
+    ]
+,
+    title: "African Chicken Peanut Stew",
+    image_url: https://spoonacular.com/recipeImages/716268-312x231.jpg,
+    ingredients: ["bell peppers 1 serving", "cooking oil 2.5 ", "curry paste 1 tsp", "ginger 1", "thyme 1 pinch", "tomato 1.5", "bell peppers 1 serving", "cooking oil 2.5 ", "curry paste 1 tsp", "ginger 1", "thyme 1 pinch", "tomato 1.5", "curry paste 1 tsp", "ginger 1", "thyme 1 pinch"],
+}
