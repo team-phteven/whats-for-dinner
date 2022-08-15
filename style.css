@@ -6,7 +6,50 @@ html {
 body {
     width: 100vw;
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #white;
+    margin: 0;
+    background-color: #181D27;
+}
+
+header {
+    width: 100%;
+    background-color: lightgrey;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.header-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+select {
+    height: 70px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
+button {
+    color: white;
+    font-weight: bolder;
+    height: 50px;
+    background-color: #69B578;
+    border: none;
+    border-radius: 25px;
+    padding: 1rem;
+    margin: 10px;
+}
+
+button:hover {
+    background-color: #5fa66e;
+    cursor: pointer;
 }
 
 main {
@@ -16,11 +59,10 @@ main {
     box-sizing: border-box;
 }
 
-
 .recipe-card {
-    margin: 0 auto;
+    margin: 2rem auto;
     position: relative;
-    width: 60%;
+    width: 70%;
     min-width: 300px;
     border-radius: 20px;
     background-color: lightgrey;
@@ -60,13 +102,14 @@ h2 {
 }
 
 
+/* INGREDIENTS-STEPS SWITCH */
 
 /* The switch - the box around the slider */
 .switch {
     position: relative;
     display: inline-block;
     width: 100%;
-    height: 34px;
+    height: 50px;
   }
   
   /* Hide default HTML checkbox */
@@ -97,7 +140,7 @@ h2 {
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    height: 26px;
+    height: 42px;
     width: 50%;
     left: 4px;
     bottom: 4px;
