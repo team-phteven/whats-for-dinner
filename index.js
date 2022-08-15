@@ -83,13 +83,8 @@ populateSelectOptions(dietSelect, diets)
 // const KEY = "29b6cef4efe24ee2a38465bb1ece58f3"
 const SPOONAPI = "https://api.spoonacular.com/recipes"
 
-// hard-coding api request vars
-
-// function to extract recipe steps
-
-function getSteps(recipe){
-
-}
+// define object to be assigned with data
+let recipeInfo = {}
 
 async function getRecipeInfo() {
 
@@ -100,21 +95,26 @@ async function getRecipeInfo() {
     let id = await result.id
     let title = await result.title
     let image_url = await result.image
-    
+
     // retrieving the recipe steps using another request with id as parameter
-    //{id}/analyzedInstructions
-    // https://api.spoonacular.com/recipes/{id}/analyze?apiKey={API_KEY}
     let recipeResponse = await fetch(`${SPOONAPI}/${id}/analyzedInstructions?apiKey=${API_KEY}`)
     let recipeBody = await recipeResponse.json()
-    console.log(recipeBody)
+    let steps = await recipeBody["0"]["steps"]
+
+    //updating recipeInfo with new values
+    recipeInfo = await {
+        steps: steps,
+        title: title,
+        image_url: image_url
+    }
 }
 
+
 // click event listener for button
-
-let recipeInfo = {}
-
-// document.querySelector('button').addEventListener('click', function(event) {
-//     event.preventDefault()
-//     recipeInfo = getRecipeInfo()
-//     console.log(recipeInfo)
-// })
+// the function will update the variable `recipe info` with data on click (is async)
+document.querySelector('button').addEventListener('click', async function(event) {
+    event.preventDefault()
+    await getRecipeInfo()
+    console.log(recipeInfo)
+    console.log(recipeInfo["steps"])
+})
