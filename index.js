@@ -155,12 +155,12 @@ document.querySelector('button').addEventListener('click', async function(event)
     toggleElementDisplay("spinner","block")
     event.preventDefault();
     await getRecipeInfo();
+    changeBigMessage();
     toggleElementDisplay("spinner","none")
     toggleElementDisplay("recipe-card","block")
     fillRecipeIngredients();
     fillRecipeTitle();
     fillRecipeHeroImage();
-    console.log(recipeInfo.steps)
 })
 
 document.getElementById('recipe-switch').addEventListener('change', function(event) {
@@ -216,4 +216,28 @@ function fillRecipeHeroImage() {
 function toggleElementDisplay(elementId,display) {
     const element = document.getElementById(elementId)
     element.style.display = display;
+}
+
+// function to undo the camel casing that changes the dietSelect.value
+function unCamel(str){
+    let result = ""
+    result += str[0].toUpperCase()
+    for (let i =1; i < str.length; i++){
+        if (str[i] === str[i].toUpperCase() && str[i-1] != str[i-1].toUpperCase() && typeof Number(str[i]) !== 'number'){
+            result += " "
+            result += str[i]
+        } else {
+            result += str[i]
+        }
+    }
+    return result
+}
+
+function changeBigMessage() {
+    // only run if the recipe is an alternative
+    if (recipeInfo.alternative == true){
+        document.getElementById("big-message").innerText = `Couldn't find that, but how about this ${unCamel(dietSelect.value)} meal?`
+    } else {
+        document.getElementById("big-message").innerText = "Tonight we're having..."
+    }
 }
