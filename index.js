@@ -161,7 +161,6 @@ document.querySelector('button').addEventListener('click', async function(event)
     fillRecipeIngredients();
     fillRecipeTitle();
     fillRecipeHeroImage();
-    console.log(recipeInfo.alternative)
 })
 
 document.getElementById('recipe-switch').addEventListener('change', function(event) {
@@ -241,7 +240,4 @@ function changeBigMessage() {
     } else {
         document.getElementById("big-message").innerText = "Tonight we're having..."
     }
-    console.log(dietSelect.value)
 }
-
-console.log(unCamel('lowFODMAP'))
