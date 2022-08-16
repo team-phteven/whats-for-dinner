@@ -261,20 +261,3 @@ button:hover {
     animation: spin 1s infinite, fade-in-out 1s infinite alternate;
     animation-timing-function: linear;
   }
-
-  /* CURVE */
-
-  svg {
-    display: inline-block;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  .container {
-    display: inline-block;
-    position: absolute;
-    width: 100%;
-    padding-bottom: 100%;
-    overflow: hidden;
-    z-index: -1;
-  }
