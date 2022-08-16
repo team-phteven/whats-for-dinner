@@ -1,7 +1,22 @@
 /* DOCUMENT */
 :root {
-    --display-font: 'Lato', sans-serif;
-    --text-font: 'Roboto', sans-serif;
+  --display-font: 'Lato', sans-serif;
+  --text-font: 'Roboto', sans-serif;
+  font-size: 62.5%;
+  --body-font-size: 1.8rem;
+  --small-text-size: 1.4rem;
+  --input-font-size: 1.6rem;
+  --heading-font-size: 3.5rem;
+  --subheading-font-size: 3rem;
+}
+
+@media (max-width: 600px) {
+  :root {
+    --body-font-size: 1.6rem;
+    --small-text-size: 1.4rem;
+    --input-font-size: 1.6rem;
+    --subheading-font-size: 2.1rem;
+  }
 }
 
 html {
@@ -14,7 +29,6 @@ html {
 
 body {
     height: 100%;
-    font-family: var(--display-font);
     font-weight: 0;
     margin: 0;
     background-color: #181D27;
@@ -24,6 +38,7 @@ body {
 }
 
 #big-message {
+  font-family: var(--display-font);
   display: flex;
   flex-wrap: nowrap;
   flex-direction: column;
@@ -37,22 +52,14 @@ body {
 
 #big-message h2 {
   color: white;
-  font-size: 3rem;
+  font-size: var(--heading-font-size);
   text-align: center;
 }
 
 #big-message p {
+  font-family: var(--text-font);
   color: white;
-  font-size: 2rem;
-}
-
-h3 {
-    top: 0;
-    position: absolute;
-    color: white;
-    font-size: 2rem;
-    font-weight: bolder;
-    margin: 2rem;
+  font-size: var(--subheading-font-size);
 }
 
 /* HEADER */
@@ -95,6 +102,7 @@ main {
 
 select {
     font-family: var(--display-font);
+    font-size: var(--input-font-size);
     height: 70px;
     border: none;
     background-color: transparent;
@@ -135,6 +143,7 @@ select {
 
 button {
     font-family: var(--display-font);
+    font-size: var(--input-font-size);
     color: white;
     font-weight: bolder;
     height: 50px;
@@ -142,7 +151,7 @@ button {
     border: none;
     border-radius: 25px;
     padding: 1rem;
-    margin: 10px;
+    margin: 10px 15px;
     display: flex;
     align-items: center;
 }
@@ -156,6 +165,7 @@ button:hover {
 
 .recipe-card {
     font-family: var(--text-font);
+    font-size: var(--body-font-size);
     position: relative;
     width: 100%;
     min-width: 300px;
@@ -170,6 +180,7 @@ button:hover {
 
 .recipe-hero {
     font-family: var(--display-font);
+    font-size: var(--heading-font-size);
     background-position: center;
     background-size:cover;
     background-repeat: none;
@@ -179,6 +190,15 @@ button:hover {
     min-height: 200px;
     overflow: hidden;
     position: relative;
+}
+
+.recipe-card h3 {
+  color: white;
+  position: absolute;
+  top: 0;
+  font-family: var(--display-font);
+  font-size: var(--heading-font-size);
+  margin: 2rem;
 }
 
 .hero-overlay {
@@ -210,6 +230,7 @@ button:hover {
     height: 50px;
     background-color: rgb(0 0 0);
     cursor: pointer;
+    font-size: var(--body-font-size);
   }
   
   /* Hide default HTML checkbox */
@@ -307,18 +328,18 @@ button:hover {
   }
 
   footer {
+    font-size: var(--small-text-size);
       height: 50px;
       width: 100%;
       background-color: #69B578;
       color: white;
       font-family: var(--text-font);
-      font-size: small;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
       margin-top: 100px;
-      padding: 2rem;
+      padding: 4rem 0;
       box-sizing: border-box;
   }
