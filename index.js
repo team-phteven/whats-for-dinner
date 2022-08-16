@@ -143,12 +143,16 @@ async function getRecipeInfo() {
 // click event listener for button
 // the function will update the variable `recipe info` with data on click (is async)
 document.querySelector('button').addEventListener('click', async function(event) {
-    displayRecipeCard();
+    toggleElementDisplay("recipe-card","none")
+    toggleElementDisplay("spinner","block")
     event.preventDefault();
     await getRecipeInfo();
+    toggleElementDisplay("spinner","none")
+    toggleElementDisplay("recipe-card","block")
     fillRecipeIngredients();
     fillRecipeTitle();
     fillRecipeHeroImage();
+    console.log(recipeInfo.steps)
 })
 
 // mock recipe object
@@ -169,6 +173,16 @@ function fillRecipeIngredients() {
         ingredientList.appendChild(newIngredient)})
 }
 
+function fillRecipeSteps() {
+    const ingredientList = document.getElementById("recipe-ingredients")
+    ingredientList.innerHTML = '';
+    recipeInfo.ingredients.forEach(ing => {
+        const newIngredient = document.createElement('li');
+        newIngredient.innerText = ing
+        newIngredient.classList += "ingredient"
+        ingredientList.appendChild(newIngredient)})
+}
+
 function fillRecipeTitle() {
     const recipeTitle = document.getElementById("recipe-title");
     recipeTitle.innerText = recipeInfo.title;
@@ -179,7 +193,7 @@ function fillRecipeHeroImage() {
     heroImage.style.backgroundImage = `url('${recipeInfo.image_url}')`;
 }
 
-function displayRecipeCard() {
-    const recipeCard = document.getElementById("recipe-card")
-    recipeCard.style.display = "block";
+function toggleElementDisplay(elementId,display) {
+    const element = document.getElementById(elementId)
+    element.style.display = display;
 }
