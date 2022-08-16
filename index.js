@@ -233,6 +233,7 @@ function unCamel(str){
     return result
 }
 
+//changes the big message when a new recipe is retrieved
 function changeBigMessage() {
     // only run if the recipe is an alternative
     if (recipeInfo.alternative == true){
