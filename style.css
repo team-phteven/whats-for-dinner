@@ -14,7 +14,7 @@ body {
     font-family: var(--display-font);
     font-weight: 0;
     margin: 0;
-    background-color: #5fa66e;
+    background-color: #181D27;
 }
 
 
@@ -260,22 +260,4 @@ button:hover {
     border-top: none;
     animation: spin 1s infinite, fade-in-out 1s infinite alternate;
     animation-timing-function: linear;
-  }
-
-  /* CURVE */
-
-  svg {
-    display: inline-block;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  .container {
-    display: inline-block;
-    position: absolute;
-    width: 100%;
-    padding-bottom: 80%;
-    vertical-align: middle;
-    overflow: hidden;
-    z-index: -1;
   }
