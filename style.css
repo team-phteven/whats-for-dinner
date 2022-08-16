@@ -14,7 +14,7 @@ body {
     font-family: var(--display-font);
     font-weight: 0;
     margin: 0;
-    background-color: #181D27;
+    background-color: #5fa66e;
 }
 
 
@@ -65,6 +65,7 @@ header {
 
 main {
     width: 80%;
+    height: 100%;
     max-width: 1000px;
     margin: 0 auto;
     box-sizing: border-box;
@@ -90,6 +91,7 @@ select {
     .header-wrapper {
         flex-direction: column;
         box-sizing: border-box;
+        background-color: #181D27;
     }
     .select-wrapper {
         display: flex;
@@ -200,7 +202,7 @@ button:hover {
     -webkit-transition: .4s;
     transition: .4s;
   }
-  
+
   .slider:before {
     position: absolute;
     content: "Ingredients";
@@ -258,4 +260,22 @@ button:hover {
     border-top: none;
     animation: spin 1s infinite, fade-in-out 1s infinite alternate;
     animation-timing-function: linear;
+  }
+
+  /* CURVE */
+
+  svg {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .container {
+    display: inline-block;
+    position: absolute;
+    width: 100%;
+    padding-bottom: 80%;
+    vertical-align: middle;
+    overflow: hidden;
+    z-index: -1;
   }
