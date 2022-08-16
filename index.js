@@ -166,10 +166,12 @@ document.querySelector('button').addEventListener('click', async function(event)
 document.getElementById('recipe-switch').addEventListener('change', function(event) {
     const recipeBody = document.getElementById('recipe-body');
     console.log("working")
-    if (recipeBody.firstChild.id === "ingredient") {
+    if (recipeBody.firstChild.classList.contains("ingredient")) {
         fillRecipeSteps();
+        console.log("id is ingredients")
     } else {
         fillRecipeIngredients();
+        console.log("id is not ingredients")
     }
 })
 
@@ -196,9 +198,9 @@ function fillRecipeSteps() {
     recipeBody.innerHTML = '';
     recipeInfo.steps.forEach(step => {
         const newStep = document.createElement('li');
-        newStep.innerText = ing
+        newStep.innerText = step
         newStep.classList += "step"
-        recipeBody.appendChild(newIngredient)})
+        recipeBody.appendChild(newStep)})
 }
 
 function fillRecipeTitle() {
