@@ -151,6 +151,7 @@ async function getRecipeInfo() {
 // click event listener for button
 // the function will update the variable `recipe info` with data on click (is async)
 document.querySelector('button').addEventListener('click', async function(event) {
+    document.getElementById('recipe-switch').checked = false; 
     toggleElementDisplay("recipe-card","none")
     toggleElementDisplay("spinner","block")
     event.preventDefault();
