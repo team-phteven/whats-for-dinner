@@ -144,6 +144,7 @@ button:hover {
     background-color: lightgrey;
     overflow: hidden;
     display:none;
+    min-height: 600px;
 }
 
 .recipe-hero {
@@ -181,6 +182,7 @@ button:hover {
     display: inline-block;
     width: 100%;
     height: 50px;
+    margin-top: 20px;
   }
   
   /* Hide default HTML checkbox */
