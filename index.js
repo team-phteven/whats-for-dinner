@@ -237,8 +237,8 @@ function unCamel(str){
 function changeBigMessage() {
     // only run if the recipe is an alternative
     if (recipeInfo.alternative == true){
-        document.getElementById("big-message").innerText = `Couldn't find that, but how about this ${unCamel(dietSelect.value)} meal?`
+        document.getElementById("big-message").innerHTML = `<h2>Couldn't find that, but how about this ${unCamel(dietSelect.value)} meal?</h2>`
     } else {
-        document.getElementById("big-message").innerText = "Tonight we're having..."
+        document.getElementById("big-message").innerHTML = "<h2>Tonight we're having...</h2>"
     }
 }
