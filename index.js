@@ -48,8 +48,7 @@ const diets = [
     "Whole30"
 ]
 
-// Takes an HTML <select> element and an array of option strings.
-// Populates the <select> element with the <option>'s .
+
 
 // function to convert string to camelCase
 function toCamelCase(str) {
@@ -65,14 +64,16 @@ function toCamelCase(str) {
     return answer
 }
 
+// Takes an HTML <select> element and an array of option strings.
+// Populates the <select> element with the <option>'s 
 
 function populateSelectOptions(element, options) {
-    for (let option of options) {
+    options.forEach(option => {
         const newOption = document.createElement('option');
         newOption.value = toCamelCase(option);
         newOption.text = option;
-        element.appendChild(newOption);
-    }
+        element.appendChild(newOption);}
+    )
 }
 
 const cuisineSelect = document.getElementById('cuisine-select');
@@ -94,7 +95,7 @@ function stringIngredients(ingredients){
     let strings = []
     for (let ing of ingredients){
         console.log(ing["amount"]["metric"]["value"])
-        strings.push(`${(Math.round(ing["amount"]["metric"]["value"] * 4)/4)} ${ing["amount"]["metric"]["unit"]} ${ing["amount"]["metric"]["unit"] ? "-" : "x" } ${ing["name"]}`.toLowerCase())
+        strings.push(`${(Math.round(ing["amount"]["metric"]["value"] * 4)/4)} ${ing["amount"]["metric"]["unit"]} ${ing["amount"]["metric"]["unit"] ? "of " : " " }${ing["name"]}`.toLowerCase())
     }
     return strings
 }
@@ -152,12 +153,14 @@ async function getRecipeInfo() {
 // click event listener for button
 // the function will update the variable `recipe info` with data on click (is async)
 document.querySelector('button').addEventListener('click', async function(event) {
-    document.getElementById('recipe-switch').checked = false; 
+    document.getElementById('recipe-switch').checked = false;
+    toggleElementDisplay("big-message","none") 
     toggleElementDisplay("recipe-card","none")
     toggleElementDisplay("spinner","block")
     event.preventDefault();
     await getRecipeInfo();
     changeBigMessage();
+    toggleElementDisplay("big-message","flex")
     toggleElementDisplay("spinner","none")
     toggleElementDisplay("recipe-card","block")
     fillRecipeIngredients();
