@@ -187,8 +187,8 @@ function fillRecipeIngredients() {
     const recipeBody = document.getElementById("recipe-body")
     recipeBody.innerHTML = '';
     recipeInfo.ingredients.forEach(ing => {
-        const newIngredient = document.createElement('li');
-        newIngredient.innerText = ing
+        const newIngredient = document.createElement('span');
+        newIngredient.innerText = `• ${ing}`
         newIngredient.classList += "ingredient"
         recipeBody.appendChild(newIngredient)})
 }
@@ -196,9 +196,9 @@ function fillRecipeIngredients() {
 function fillRecipeSteps() {
     const recipeBody = document.getElementById("recipe-body")
     recipeBody.innerHTML = '';
-    recipeInfo.steps.forEach(step => {
-        const newStep = document.createElement('li');
-        newStep.innerText = step
+    recipeInfo.steps.forEach((step, index) => {
+        const newStep = document.createElement('span');
+        newStep.innerText = `${index + 1}. ${step}`
         newStep.classList += "step"
         recipeBody.appendChild(newStep)})
 }

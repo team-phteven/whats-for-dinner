@@ -42,11 +42,11 @@ body {
 
 h3 {
     top: 0;
-    margin: 2rem;
     position: absolute;
     color: white;
     font-size: 2rem;
     font-weight: bolder;
+    margin: 2rem;
 }
 
 /* HEADER */
@@ -152,14 +152,16 @@ button:hover {
 
 .recipe-card {
     font-family: var(--text-font);
-    margin: 2rem auto;
     position: relative;
-    width: 70%;
+    width: 100%;
     min-width: 300px;
+    max-width: 600px;
+    margin: 0 auto;
     border-radius: 20px;
     background-color: lightgrey;
     overflow: hidden;
     display:none;
+    min-height: 600px;
 }
 
 .recipe-hero {
@@ -185,7 +187,6 @@ button:hover {
 
 .recipe-ingredients {
     font-family: var(--text-font);
-    padding: 2rem;
 }
 
 
@@ -219,6 +220,7 @@ button:hover {
     transition: .4s;
   }
 
+
   .slider:before {
     position: absolute;
     content: "Ingredients";
@@ -235,6 +237,10 @@ button:hover {
     background-color: #69B578;
     -webkit-transition: .4s;
     transition: .4s;
+  }
+
+  .recipe-body {
+      margin: 2rem;
   }
 
   input:checked + .slider:before {
@@ -276,4 +282,8 @@ button:hover {
     border-top: none;
     animation: spin 1s infinite, fade-in-out 1s infinite alternate;
     animation-timing-function: linear;
+  }
+
+  .step, .ingredient {
+      display: block;
   }
