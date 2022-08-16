@@ -109,8 +109,8 @@ function stepStrings(stepsArray){
 
 async function getRecipeInfo() {
 
-    // first request to get id, title and image
-    let res = await fetch(`${SPOONAPI}/complexSearch?apiKey=${API_KEY}&cuisine=${cuisineSelect.value}&diet=${dietSelect.value}&number=1`)
+    // first request to get id, title and image // adding offset param for testing
+    let res = await fetch(`${SPOONAPI}/complexSearch?apiKey=${API_KEY}&cuisine=${cuisineSelect.value}&diet=${dietSelect.value}&number=1&sort=random`)
     let body = await res.json()
     let result = await body.results[0]
     let id = await result.id
