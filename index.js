@@ -93,7 +93,7 @@ let recipeInfo = {}
 function stringIngredients(ingredients){
     let strings = []
     for (let ing of ingredients){
-        strings.push(`${ing["name"]} ${ing["amount"]["metric"]["value"]} ${ing["amount"]["metric"]["unit"]}`)
+        strings.push(`${ing["name"]} - ${ing["amount"]["metric"]["value"]} ${ing["amount"]["metric"]["unit"]}`)
     }
     return strings
 }
@@ -154,6 +154,16 @@ document.querySelector('button').addEventListener('click', async function(event)
     console.log(recipeInfo.steps)
 })
 
+document.getElementById('recipe-switch').addEventListener('change', function(event) {
+    const recipeBody = document.getElementById('recipe-body');
+    console.log("working")
+    if (recipeBody.firstChild.id === "ingredient") {
+        fillRecipeSteps();
+    } else {
+        fillRecipeIngredients();
+    }
+})
+
 // mock recipe object
 let recipe = {
     "steps": ['Season and Boil the Chicken for 10 minutes with sa…toes Both chopped and Blended, ginger and garlic.', 'Add your seasoning, curry, thyme, parsley, salt and pepper to the pot.', 'Pour in your stock, chicken and potatoes to cook f…r sauce gets too thick, add a little water to it.', 'Serve with white rice or more sweet potatoes.You could also garnish the dish with Bell peppers.   '],
@@ -163,23 +173,23 @@ let recipe = {
 }
 
 function fillRecipeIngredients() {
-    const ingredientList = document.getElementById("recipe-ingredients")
-    ingredientList.innerHTML = '';
+    const recipeBody = document.getElementById("recipe-body")
+    recipeBody.innerHTML = '';
     recipeInfo.ingredients.forEach(ing => {
         const newIngredient = document.createElement('li');
         newIngredient.innerText = ing
         newIngredient.classList += "ingredient"
-        ingredientList.appendChild(newIngredient)})
+        recipeBody.appendChild(newIngredient)})
 }
 
 function fillRecipeSteps() {
-    const ingredientList = document.getElementById("recipe-ingredients")
-    ingredientList.innerHTML = '';
-    recipeInfo.ingredients.forEach(ing => {
-        const newIngredient = document.createElement('li');
-        newIngredient.innerText = ing
-        newIngredient.classList += "ingredient"
-        ingredientList.appendChild(newIngredient)})
+    const recipeBody = document.getElementById("recipe-body")
+    recipeBody.innerHTML = '';
+    recipeInfo.steps.forEach(step => {
+        const newStep = document.createElement('li');
+        newStep.innerText = ing
+        newStep.classList += "step"
+        recipeBody.appendChild(newIngredient)})
 }
 
 function fillRecipeTitle() {
