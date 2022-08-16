@@ -93,7 +93,8 @@ let recipeInfo = {}
 function stringIngredients(ingredients){
     let strings = []
     for (let ing of ingredients){
-        strings.push(`${ing["name"]} - ${ing["amount"]["metric"]["value"]} ${ing["amount"]["metric"]["unit"]}`)
+        console.log(ing["amount"]["metric"]["value"])
+        strings.push(`${(Math.round(ing["amount"]["metric"]["value"] * 4)/4)} ${ing["amount"]["metric"]["unit"]} ${ing["amount"]["metric"]["unit"] ? "-" : "x" } ${ing["name"]}`.toLowerCase())
     }
     return strings
 }
@@ -189,7 +190,7 @@ function fillRecipeIngredients() {
     recipeBody.innerHTML = '';
     recipeInfo.ingredients.forEach(ing => {
         const newIngredient = document.createElement('span');
-        newIngredient.innerText = `• ${ing}`
+        newIngredient.innerHTML = `<b>•</b> ${ing}`
         newIngredient.classList += "ingredient"
         recipeBody.appendChild(newIngredient)})
 }
@@ -199,7 +200,7 @@ function fillRecipeSteps() {
     recipeBody.innerHTML = '';
     recipeInfo.steps.forEach((step, index) => {
         const newStep = document.createElement('span');
-        newStep.innerText = `${index + 1}. ${step}`
+        newStep.innerHTML = `<b>${index + 1}.</b> ${step}`
         newStep.classList += "step"
         recipeBody.appendChild(newStep)})
 }
