@@ -112,6 +112,14 @@ async function getRecipeInfo() {
     // first request to get id, title and image from random recipe given the parameters
     let res = await fetch(`${SPOONAPI}/complexSearch?apiKey=${API_KEY}&cuisine=${cuisineSelect.value !== "anyCuisine" ? cuisineSelect.value : ""}&diet=${dietSelect.value !== "anyDiet" ? dietSelect.value : ""}&number=1&sort=random`)
     let body = await res.json()
+    let alternative = false
+    
+    // conditional will make another request an alternative with same dietaries if no results are found
+    if (body.totalResults === 0){
+        alternative = true
+        res = await fetch(`${SPOONAPI}/complexSearch?apiKey=${API_KEY}&diet=${dietSelect.value}&number=1&sort=random`)
+        body = await res.json()
+    }
     let result = await body.results[0]
     let id = await result.id
     let title = await result.title
@@ -129,12 +137,13 @@ async function getRecipeInfo() {
     let ingredientsArray = await ingredientsBody["ingredients"]
     let ingredients = stringIngredients(ingredientsArray)
 
-    //updating recipeInfo with new values
+    //updating recipeInfo with new values // 'alternative' will be true if an alternative was fetched
     recipeInfo = {
         steps: steps,
         title: title,
         image_url: image_url,
-        ingredients: ingredients
+        ingredients: ingredients,
+        alternative: alternative
     }
 }
 
