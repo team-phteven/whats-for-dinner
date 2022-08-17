@@ -190,7 +190,6 @@ button:hover {
   background-position: center;
   background-size: cover;
   background-repeat: none;
-  background-color: black;
   width: 100%;
   height: 40%;
   min-height: 200px;
@@ -298,15 +297,15 @@ input:checked~.steps-button {
 
 @keyframes fade-in-out {
   from {
-    border-bottom: 8px dotted rgb(95 166 110);
-    border-right: 5px dotted rgb(95 166 110);
+    border-bottom: 8px dotted var(--wfd-green);
+    border-right: 5px dotted var(--wfd-green);
     border-top: none;
     border-left: none;
   }
 
   to {
-    border-bottom: 8px dotted rgb(95 166 110);
-    border-right: 5px dotted rgb(95 166 110 / 0.2);
+    border-bottom: 8px dotted var(--wfd-green);
+    border-right: 5px dotted rgb(105 181 120 / 0.2);
     border-top: none;
     border-left: none;
   }
