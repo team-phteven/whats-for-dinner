@@ -207,7 +207,7 @@ function toggleElementDisplay(elementId,display) {
 //changes the big message when a new recipe is retrieved
 function changeBigMessage() {
     // only run if the recipe is an alternative
-    if (recipeInfo.alternative == true){
+    if (recipeInfo.alternative){
         document.getElementById("big-message").innerHTML = `<h2>Couldn't find that, but how about this ${unCamel(dietSelect.value)} meal?</h2>`
     } else {
         document.getElementById("big-message").innerHTML = "<h2>Tonight we're having...</h2>"
