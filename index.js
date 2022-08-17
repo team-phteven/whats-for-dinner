@@ -101,7 +101,6 @@ function unCamel(str){
 
 // API:
 
-// const KEY = "29b6cef4efe24ee2a38465bb1ece58f3"
 const SPOONAPI = "https://api.spoonacular.com/recipes"
 
 // define object to be assigned with data
@@ -208,7 +207,7 @@ function toggleElementDisplay(elementId,display) {
 //changes the big message when a new recipe is retrieved
 function changeBigMessage() {
     // only run if the recipe is an alternative
-    if (recipeInfo.alternative == true){
+    if (recipeInfo.alternative){
         document.getElementById("big-message").innerHTML = `<h2>Couldn't find that, but how about this ${unCamel(dietSelect.value)} meal?</h2>`
     } else {
         document.getElementById("big-message").innerHTML = "<h2>Tonight we're having...</h2>"
