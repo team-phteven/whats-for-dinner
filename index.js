@@ -101,7 +101,6 @@ function unCamel(str){
 
 // API:
 
-// const KEY = "29b6cef4efe24ee2a38465bb1ece58f3"
 const SPOONAPI = "https://api.spoonacular.com/recipes"
 
 // define object to be assigned with data
