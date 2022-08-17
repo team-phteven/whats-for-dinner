@@ -1,1 +1,1 @@
-https://frolicking-arithmetic-f069dc.netlify.app/
+https://fordinner.netlify.app/
