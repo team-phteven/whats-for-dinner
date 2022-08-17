@@ -1,7 +1,8 @@
 import { API_KEY } from './credentials.js'
 
-// Array of available cuisines
+// DOCUMENT SET UP:
 
+// Array of available cuisines
 const cuisines = [
     "Any Cuisine",
     "African",
@@ -32,7 +33,6 @@ const cuisines = [
     "Vietnamese"];
 
 // Array of available diets
-
 const diets = [
     "Any Diet",
     "Gluten Free",
@@ -48,9 +48,27 @@ const diets = [
     "Whole30"
 ]
 
+// Takes an HTML <select> element and an array of option strings.
+// Populates the <select> element with the <option>'s 
+function populateSelectOptions(element, options) {
+    options.forEach(option => {
+        const newOption = document.createElement('option');
+        newOption.value = toCamelCase(option);
+        newOption.text = option;
+        element.appendChild(newOption);}
+    )
+}
 
+const cuisineSelect = document.getElementById('cuisine-select');
+const dietSelect = document.getElementById('diet-select');
+populateSelectOptions(cuisineSelect, cuisines);
+populateSelectOptions(dietSelect, diets)
 
-// function to convert string to camelCase
+/* ------------------------------------------------ */
+
+// HELPER FUNCTIONS:
+
+// convert string to camelCase
 function toCamelCase(str) {
     let answer = ""
     answer += str[0].toLowerCase()
@@ -64,25 +82,24 @@ function toCamelCase(str) {
     return answer
 }
 
-// Takes an HTML <select> element and an array of option strings.
-// Populates the <select> element with the <option>'s 
-
-function populateSelectOptions(element, options) {
-    options.forEach(option => {
-        const newOption = document.createElement('option');
-        newOption.value = toCamelCase(option);
-        newOption.text = option;
-        element.appendChild(newOption);}
-    )
+// undo the camel casing that changes the dietSelect.value
+function unCamel(str){
+    let result = ""
+    result += str[0].toUpperCase()
+    for (let i =1; i < str.length; i++){
+        if (str[i] === str[i].toUpperCase() && str[i-1] != str[i-1].toUpperCase() && typeof Number(str[i]) !== 'number'){
+            result += " "
+            result += str[i]
+        } else {
+            result += str[i]
+        }
+    }
+    return result
 }
 
-const cuisineSelect = document.getElementById('cuisine-select');
-const dietSelect = document.getElementById('diet-select');
+/* ------------------------------------------------ */
 
-populateSelectOptions(cuisineSelect, cuisines);
-populateSelectOptions(dietSelect, diets)
-
-// API stuff
+// API:
 
 // const KEY = "29b6cef4efe24ee2a38465bb1ece58f3"
 const SPOONAPI = "https://api.spoonacular.com/recipes"
@@ -90,17 +107,16 @@ const SPOONAPI = "https://api.spoonacular.com/recipes"
 // define object to be assigned with data
 let recipeInfo = {}
 
-// function to make array of ingredient strings
+// make array of ingredient strings
 function stringIngredients(ingredients){
     let strings = []
     for (let ing of ingredients){
-        console.log(ing["amount"]["metric"]["value"])
         strings.push(`${(Math.round(ing["amount"]["metric"]["value"] * 4)/4)} ${ing["amount"]["metric"]["unit"]} ${ing["amount"]["metric"]["unit"] ? "of " : " " }${ing["name"]}`.toLowerCase())
     }
     return strings
 }
 
-// function to make array of steps
+// make array of steps
 function stepStrings(stepsArray){
     let strings = []
     for (let item of stepsArray){
@@ -149,44 +165,10 @@ async function getRecipeInfo() {
     }
 }
 
+/* ------------------------------------------------ */
 
-// click event listener for button
-// the function will update the variable `recipe info` with data on click (is async)
-document.querySelector('button').addEventListener('click', async function(event) {
-    document.getElementById('recipe-switch').checked = false;
-    toggleElementDisplay("big-message","none") 
-    toggleElementDisplay("recipe-card","none")
-    toggleElementDisplay("spinner","block")
-    event.preventDefault();
-    await getRecipeInfo();
-    changeBigMessage();
-    toggleElementDisplay("big-message","flex")
-    toggleElementDisplay("spinner","none")
-    toggleElementDisplay("recipe-card","block")
-    fillRecipeIngredients();
-    fillRecipeTitle();
-    fillRecipeHeroImage();
-})
+// DOM MANIPULATION FUNCTIONS:
 
-document.getElementById('recipe-switch').addEventListener('change', function(event) {
-    const recipeBody = document.getElementById('recipe-body');
-    console.log("working")
-    if (recipeBody.firstChild.classList.contains("ingredient")) {
-        fillRecipeSteps();
-        console.log("id is ingredients")
-    } else {
-        fillRecipeIngredients();
-        console.log("id is not ingredients")
-    }
-})
-
-// mock recipe object
-let recipe = {
-    "steps": ['Season and Boil the Chicken for 10 minutes with sa…toes Both chopped and Blended, ginger and garlic.', 'Add your seasoning, curry, thyme, parsley, salt and pepper to the pot.', 'Pour in your stock, chicken and potatoes to cook f…r sauce gets too thick, add a little water to it.', 'Serve with white rice or more sweet potatoes.You could also garnish the dish with Bell peppers.   '],
-    title: "African Chicken Peanut Stew",
-    image_url: "https://spoonacular.com/recipeImages/716268-312x231.jpg",
-    ingredients: ["bell peppers 1 serving", "cooking oil 2.5 ", "curry paste 1 tsp", "ginger 1", "thyme 1 pinch", "tomato 1.5", "bell peppers 1 serving", "cooking oil 2.5 ", "curry paste 1 tsp", "ginger 1", "thyme 1 pinch", "tomato 1.5", "curry paste 1 tsp", "ginger 1", "thyme 1 pinch"]
-}
 
 function fillRecipeIngredients() {
     const recipeBody = document.getElementById("recipe-body")
@@ -223,21 +205,6 @@ function toggleElementDisplay(elementId,display) {
     element.style.display = display;
 }
 
-// function to undo the camel casing that changes the dietSelect.value
-function unCamel(str){
-    let result = ""
-    result += str[0].toUpperCase()
-    for (let i =1; i < str.length; i++){
-        if (str[i] === str[i].toUpperCase() && str[i-1] != str[i-1].toUpperCase() && typeof Number(str[i]) !== 'number'){
-            result += " "
-            result += str[i]
-        } else {
-            result += str[i]
-        }
-    }
-    return result
-}
-
 //changes the big message when a new recipe is retrieved
 function changeBigMessage() {
     // only run if the recipe is an alternative
@@ -247,3 +214,39 @@ function changeBigMessage() {
         document.getElementById("big-message").innerHTML = "<h2>Tonight we're having...</h2>"
     }
 }
+
+/* ------------------------------------------------ */
+
+// EVENT LISTENERS:
+
+// click event listener for button
+// update the variable `recipe info` with data on click (is async)
+// triggers dom manipulation functions, (show and hide spinner / recipe card, fill ingredients etc.)
+document.querySelector('button').addEventListener('click', async function(event) {
+    document.getElementById('recipe-switch').checked = false;
+    toggleElementDisplay("big-message","none") 
+    toggleElementDisplay("recipe-card","none")
+    toggleElementDisplay("spinner","block")
+    event.preventDefault();
+    await getRecipeInfo();
+    changeBigMessage();
+    toggleElementDisplay("big-message","flex")
+    toggleElementDisplay("spinner","none")
+    toggleElementDisplay("recipe-card","block")
+    fillRecipeIngredients();
+    fillRecipeTitle();
+    fillRecipeHeroImage();
+})
+
+// listen for change on the ingredients/step buttons (checkbox hack)
+// if recipeBody contains steps will replace with ingredients & vice versa
+document.getElementById('recipe-switch').addEventListener('change', function(event) {
+    const recipeBody = document.getElementById('recipe-body');
+    if (recipeBody.firstChild.classList.contains("ingredient")) {
+        fillRecipeSteps();
+    } else {
+        fillRecipeIngredients();
+    }
+})
+
+/* ------------------------------------------------ */
