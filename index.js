@@ -112,8 +112,6 @@ async function getRecipeInfo() {
     let id = await result.id
     let title = await result.title
     let image_url = await result.image
-    console.log("------------ initial response: ")
-    console.log(body)
 
     // retrieving the recipe steps using another request with id as parameter
     let recipeResponse = await fetch(`${SPOONAPI}/${id}/analyzedInstructions?apiKey=${API_KEY}`)
@@ -135,8 +133,6 @@ async function getRecipeInfo() {
         ingredients: ingredients,
         alternative: alternative
     }
-    console.log("------------recipeInfo: ")
-    console.log(recipeInfo)
 }
 
 /* ------------------------------------------------ */
