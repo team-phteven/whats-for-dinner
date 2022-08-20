@@ -53,7 +53,9 @@ const diets = [
 function populateSelectOptions(element, options) {
     options.forEach(option => {
         const newOption = document.createElement('option');
-        newOption.value = toCamelCase(option);
+        // newOption.value = toCamelCase(option);
+        // seeing if it works just downcased
+        newOption.value = option.toLowerCase();
         newOption.text = option;
         element.appendChild(newOption);}
     )
@@ -80,21 +82,6 @@ function toCamelCase(str) {
         }
     }
     return answer
-}
-
-// undo the camel casing that changes the dietSelect.value
-function unCamel(str){
-    let result = ""
-    result += str[0].toUpperCase()
-    for (let i =1; i < str.length; i++){
-        if (str[i] === str[i].toUpperCase() && str[i-1] != str[i-1].toUpperCase() && typeof Number(str[i]) !== 'number'){
-            result += " "
-            result += str[i]
-        } else {
-            result += str[i]
-        }
-    }
-    return result
 }
 
 /* ------------------------------------------------ */
@@ -127,14 +114,14 @@ function stepStrings(stepsArray){
 async function getRecipeInfo() {
 
     // first request to get id, title and image from random recipe given the parameters
-    let res = await fetch(`${SPOONAPI}/complexSearch?apiKey=${API_KEY}&cuisine=${cuisineSelect.value !== "anyCuisine" ? cuisineSelect.value : ""}&diet=${dietSelect.value !== "anyDiet" ? dietSelect.value : ""}&number=1&sort=random`)
+    let res = await fetch(`${SPOONAPI}/complexSearch?apiKey=${API_KEY}&cuisine=${cuisineSelect.value !== "anyCuisine" ? cuisineSelect.value : ""}&diet=${dietSelect.value !== "anyDiet" ? dietSelect.value : ""}&number=1&sort=random&type=main course`)
     let body = await res.json()
     let alternative = false
     
     // conditional will make another request an alternative with same dietaries if no results are found
     if (body.totalResults === 0){
         alternative = true
-        res = await fetch(`${SPOONAPI}/complexSearch?apiKey=${API_KEY}&number=1&sort=random`)
+        res = await fetch(`${SPOONAPI}/complexSearch?apiKey=${API_KEY}&number=1&sort=random&type=main course`)
         body = await res.json()
     }
     let result = await body.results[0]
@@ -212,7 +199,10 @@ function toggleElementDisplay(elementId,display) {
 function changeBigMessage() {
     // only run if the recipe is an alternative
     if (recipeInfo.alternative){
-        document.getElementById("big-message").innerHTML = `<h2>Couldn't find that, but how about this ${unCamel(dietSelect.value)} meal?</h2>`
+        // credit to Stephen for figuring out how to access the selection's text
+        let sel = document.getElementById('diet-select');
+        let text = sel.options[sel.selectedIndex].text;
+        document.getElementById("big-message").innerHTML = `<h2>Couldn't find that, but how about this ${text} meal?</h2>`
     } else {
         document.getElementById("big-message").innerHTML = "<h2>Tonight we're having...</h2>"
     }
