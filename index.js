@@ -134,13 +134,15 @@ async function getRecipeInfo() {
     // conditional will make another request an alternative with same dietaries if no results are found
     if (body.totalResults === 0){
         alternative = true
-        res = await fetch(`${SPOONAPI}/complexSearch?apiKey=${API_KEY}&diet=${dietSelect.value}&number=1&sort=random`)
+        res = await fetch(`${SPOONAPI}/complexSearch?apiKey=${API_KEY}&number=1&sort=random`)
         body = await res.json()
     }
     let result = await body.results[0]
     let id = await result.id
     let title = await result.title
     let image_url = await result.image
+    console.log("------------ initial response: ")
+    console.log(body)
 
     // retrieving the recipe steps using another request with id as parameter
     let recipeResponse = await fetch(`${SPOONAPI}/${id}/analyzedInstructions?apiKey=${API_KEY}`)
@@ -162,6 +164,8 @@ async function getRecipeInfo() {
         ingredients: ingredients,
         alternative: alternative
     }
+    console.log("------------recipeInfo: ")
+    console.log(recipeInfo)
 }
 
 /* ------------------------------------------------ */
