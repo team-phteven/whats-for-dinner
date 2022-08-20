@@ -70,20 +70,6 @@ populateSelectOptions(dietSelect, diets)
 
 // HELPER FUNCTIONS:
 
-// convert string to camelCase
-function toCamelCase(str) {
-    let answer = ""
-    answer += str[0].toLowerCase()
-    for (let i =1; i < str.length; i++){
-        if (str[i - 1] === "_"||str[i - 1] === "-"){
-            answer += str[i].toUpperCase()
-        } else if (str[i] !== "-" && str[i] !== "_" && str[i] !== " "){
-            answer += str[i]
-        }
-    }
-    return answer
-}
-
 /* ------------------------------------------------ */
 
 // API:
