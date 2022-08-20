@@ -53,8 +53,6 @@ const diets = [
 function populateSelectOptions(element, options) {
     options.forEach(option => {
         const newOption = document.createElement('option');
-        // newOption.value = toCamelCase(option);
-        // seeing if it works just downcased
         newOption.value = option.toLowerCase();
         newOption.text = option;
         element.appendChild(newOption);}
